@@ -1,0 +1,12 @@
+/* Logo en navbar y login */
+.brand-link .brand-image,
+.login-logo img {
+    max-height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.login-logo img {
+    max-height: 80px;
+    margin-bottom: 1rem;
+}

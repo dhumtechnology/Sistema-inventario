@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.db.models import Count, Sum, F
 from django.template.response import TemplateResponse
-from django.urls import path
 from django.utils import timezone
 
 from .models import (
@@ -11,16 +10,10 @@ from .models import (
 
 
 class EstadisticasMixin:
-    def get_urls(self):
-        urls = super().get_urls()
-        custom_urls = [
-            path(
-                'estadisticas/',
-                self.admin_view(self.estadisticas_view),
-                name='estadisticas',
-            ),
-        ]
-        return custom_urls + urls
+    index_title = 'Panel de control'
+
+    def index(self, request, extra_context=None):
+        return self.estadisticas_view(request)
 
     def estadisticas_view(self, request):
         hoy = timezone.now().date()
@@ -83,7 +76,7 @@ class EstadisticasMixin:
 
         context = {
             **self.each_context(request),
-            'title': 'Estadísticas del Inventario',
+            'title': 'Panel de control',
             'total_productos': total_productos,
             'total_clientes': total_clientes,
             'total_almacenes': total_almacenes,

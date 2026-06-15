@@ -78,6 +78,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = 'media/'
@@ -87,16 +88,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # ── Jazzmin ──────────────────────────────────────────────────────────────────
 JAZZMIN_SETTINGS = {
-    'site_title': 'Inventario Ropa',
-    'site_header': 'Tienda de Ropa',
-    'site_brand': 'Inventario',
-    'site_logo': None,
-    'welcome_sign': 'Bienvenido al Sistema de Inventario',
-    'copyright': 'Sistema de Inventario',
+    'site_title': 'DHUM Inventarios',
+    'site_header': 'DHUM Inventarios',
+    'site_brand': 'DHUM Inventarios',
+    'site_logo': 'img/logo.png',
+    'login_logo': 'img/logo.png',
+    'site_logo_classes': 'brand-image-xl elevation-3',
+    'welcome_sign': 'Bienvenido a DHUM Inventarios',
+    'copyright': 'DHUM Inventarios',
     'search_model': ['inventario.Producto', 'inventario.Cliente'],
     'topmenu_links': [
         {'name': 'Inicio', 'url': 'admin:index', 'permissions': ['auth.view_user']},
-        {'name': 'Estadísticas', 'url': 'admin:estadisticas', 'permissions': ['auth.view_user']},
     ],
     'usermenu_links': [
         {'model': 'auth.user'},
@@ -133,7 +135,7 @@ JAZZMIN_SETTINGS = {
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',
     'related_modal_active': True,
-    'custom_css': None,
+    'custom_css': 'css/custom.css',
     'custom_js': None,
     'show_ui_builder': False,
     'changeform_format': 'horizontal_tabs',
@@ -148,23 +150,23 @@ JAZZMIN_UI_TWEAKS = {
     'footer_small_text': False,
     'body_small_text': False,
     'brand_small_text': False,
-    'brand_colour': 'navbar-dark',
-    'accent': 'accent-rose',
-    'navbar': 'navbar-dark navbar-gray-dark',
+    'brand_colour': 'navbar-primary',
+    'accent': 'accent-primary',
+    'navbar': 'navbar-white navbar-light',
     'no_navbar_border': False,
     'navbar_fixed': True,
     'layout_boxed': False,
     'footer_fixed': False,
     'sidebar_fixed': True,
-    'sidebar': 'sidebar-dark-rose',
+    'sidebar': 'sidebar-light-primary',
     'sidebar_nav_small_text': False,
     'sidebar_disable_expand': False,
     'sidebar_nav_child_indent': True,
     'sidebar_nav_compact_style': False,
     'sidebar_nav_legacy_style': False,
     'sidebar_nav_flat_style': False,
-    'theme': 'default',
-    'dark_mode_theme': None,
+    'theme': 'litera',
+    'dark_mode_theme': 'darkly',
     'button_classes': {
         'primary': 'btn-primary',
         'secondary': 'btn-secondary',

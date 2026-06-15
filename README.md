@@ -67,7 +67,21 @@ Al levantar el sistema se ejecuta automáticamente el seeder con upsert. Credenc
 
 ### Ver estadísticas
 
-Accede desde el menú superior **Estadísticas** o en `/admin/estadisticas/`
+El **Panel de control** (`/admin/`) muestra el dashboard de estadísticas al iniciar sesión.
+
+### Logo personalizado
+
+Coloca tu imagen en:
+
+```
+static/img/logo.png
+```
+
+Se mostrará en el login y en la barra lateral del panel. Ver `static/img/LEEME.txt` para más detalles.
+
+### Modo claro / oscuro
+
+Usa el botón de sol/luna en la barra superior del panel para alternar entre temas.
 
 ## Comandos útiles
 
