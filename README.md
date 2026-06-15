@@ -81,7 +81,7 @@ Se mostrará en el login y en la barra lateral del panel. Ver `static/img/LEEME.
 
 ### Modo claro / oscuro
 
-Usa el botón de sol/luna en la barra superior del panel para alternar entre temas.
+Usa el botón de luna/sol en la barra superior del panel (o en la esquina del login) para alternar entre modos.
 
 ## Comandos útiles
 

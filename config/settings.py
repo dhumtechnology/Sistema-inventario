@@ -136,7 +136,7 @@ JAZZMIN_SETTINGS = {
     'default_icon_children': 'fas fa-circle',
     'related_modal_active': True,
     'custom_css': 'css/custom.css',
-    'custom_js': None,
+    'custom_js': 'js/theme-toggle.js',
     'show_ui_builder': False,
     'changeform_format': 'horizontal_tabs',
     'changeform_format_overrides': {
@@ -166,7 +166,7 @@ JAZZMIN_UI_TWEAKS = {
     'sidebar_nav_legacy_style': False,
     'sidebar_nav_flat_style': False,
     'theme': 'litera',
-    'dark_mode_theme': 'darkly',
+    'default_theme_mode': 'light',
     'button_classes': {
         'primary': 'btn-primary',
         'secondary': 'btn-secondary',
