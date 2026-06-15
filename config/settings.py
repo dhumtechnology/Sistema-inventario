@@ -9,7 +9,70 @@ SECRET_KEY = config('SECRET_KEY', default='django-insecure-dev-key-change-me')
 
 DEBUG = config('DEBUG', default=True, cast=bool)
 
-ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+def _normalize_host(value):
+    host = value.strip()
+    if host.startswith('https://'):
+        host = host[len('https://'):]
+    elif host.startswith('http://'):
+        host = host[len('http://'):]
+    return host.split('/')[0].strip()
+
+
+def _normalize_csrf_origin(value):
+    value = value.strip().rstrip('/')
+    if not value:
+        return ''
+    if '://' in value:
+        scheme, rest = value.split('://', 1)
+        host = rest.split('/')[0]
+        return f'{scheme}://{host}'
+    host = _normalize_host(value)
+    return f'https://{host}' if host else ''
+
+
+def _build_allowed_hosts():
+    hosts = config('DJANGO_ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=Csv())
+    normalized = []
+    for host in hosts:
+        host = _normalize_host(host)
+        if host and host not in normalized:
+            normalized.append(host)
+
+    render_host = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if render_host:
+        render_host = _normalize_host(render_host)
+        if render_host and render_host not in normalized:
+            normalized.append(render_host)
+
+    return normalized
+
+
+def _build_csrf_trusted_origins(allowed_hosts):
+    origins = []
+    for origin in config('CSRF_TRUSTED_ORIGINS', default='', cast=Csv()):
+        normalized = _normalize_csrf_origin(origin)
+        if normalized and normalized not in origins:
+            origins.append(normalized)
+
+    for host in allowed_hosts:
+        if host.startswith('.'):
+            continue
+        origin = f'https://{host}'
+        if origin not in origins:
+            origins.append(origin)
+
+    return origins
+
+
+ALLOWED_HOSTS = _build_allowed_hosts()
+CSRF_TRUSTED_ORIGINS = _build_csrf_trusted_origins(ALLOWED_HOSTS)
+
+# Render termina SSL en su proxy; sin esto Django cree que la petición es HTTP
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+if not DEBUG:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 INSTALLED_APPS = [
     'jazzmin',
